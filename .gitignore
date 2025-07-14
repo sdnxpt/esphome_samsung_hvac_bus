@@ -9,7 +9,7 @@ src/
 platformio.ini
 sdkconfig.m5stack-atom
 CMakeLists.txt
-.gitignore
 esp.yaml
+esp-nasa.yaml
 secrets.yaml
 dev-esp.yaml
