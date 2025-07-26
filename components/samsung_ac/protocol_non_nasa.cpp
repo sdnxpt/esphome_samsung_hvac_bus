@@ -606,6 +606,8 @@ namespace esphome
                     target->set_altmode(nonpacket_.src, 0);              // TODO
                     target->set_swing_horizontal(nonpacket_.src, false); // TODO
                     target->set_swing_vertical(nonpacket_.src, false);   // TODO
+                    target->set_indoor_eva_in_temperature(nonpacket_.src, nonpacket_.command20.pipe_in);
+                    target->set_indoor_eva_out_temperature(nonpacket_.src, nonpacket_.command20.pipe_out);
                 }
                 break;
             }
@@ -650,6 +652,11 @@ namespace esphome
                 {
                     // Publish outdoor temperature if there are no pending control messages
                     target->set_outdoor_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_outdoor_temp_c);
+                    target->set_outdoor_operation_mode(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_operation_mode);
+                    // target->set_outdoor_compressor(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_compressor);
+                    // target->set_outdoor_condenser_mid_temp(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp_c);
+                    // target->set_outdoor_condenser_discharge_temp(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp_c);
+                    // target->set_outdoor_unit_4_way_valve(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_4_way_valve);
                 }
                 break;
             }

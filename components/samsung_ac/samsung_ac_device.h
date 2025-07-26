@@ -105,6 +105,7 @@ namespace esphome
       std::string address;
       sensor::Sensor *room_temperature{nullptr};
       sensor::Sensor *outdoor_temperature{nullptr};
+      sensor::Sensor *outdoor_operation_mode{nullptr};
       sensor::Sensor *indoor_eva_in_temperature{nullptr};
       sensor::Sensor *indoor_eva_out_temperature{nullptr};
       sensor::Sensor *error_code{nullptr};
@@ -173,6 +174,11 @@ namespace esphome
       void set_outdoor_temperature_sensor(sensor::Sensor *sensor)
       {
         outdoor_temperature = sensor;
+      }
+
+      void set_outdoor_operation_mode_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_operation_mode = sensor;
       }
 
       void set_indoor_eva_in_temperature_sensor(sensor::Sensor *sensor)
