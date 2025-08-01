@@ -62,6 +62,8 @@ CONF_DEVICE_ROOM_TEMPERATURE_OFFSET = "room_temperature_offset"
 CONF_DEVICE_TARGET_TEMPERATURE = "target_temperature"
 CONF_DEVICE_WATER_OUTLET_TARGET = "water_outlet_target"
 CONF_DEVICE_OUTDOOR_TEMPERATURE = "outdoor_temperature"
+CONF_DEVICE_OUTDOOR_DISCHARGE_TEMPERATURE = "outdoor_discharge_temperature"
+CONF_DEVICE_OUTDOOR_CONDENSER_MID_TEMPERATURE = "outdoor_condenser_mid_temperature"
 CONF_DEVICE_OUTDOOR_OPERATION_MODE = "outdoor_operation_mode"
 CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE = "indoor_eva_in_temperature"
 CONF_DEVICE_INDOOR_EVA_OUT_TEMPERATURE = "indoor_eva_out_temperature"
@@ -445,6 +447,14 @@ async def to_code(config):
             CONF_DEVICE_OUTDOOR_TEMPERATURE: (
                 sensor.new_sensor,
                 var_dev.set_outdoor_temperature_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_DISCHARGE_TEMPERATURE: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_discharge_temperature_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_CONDENSER_MID_TEMPERATURE: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_condenser_mid_temperature_sensor,
             ),
             CONF_DEVICE_OUTDOOR_OPERATION_MODE: (
                 sensor.new_sensor,

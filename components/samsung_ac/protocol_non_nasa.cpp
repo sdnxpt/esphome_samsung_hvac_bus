@@ -653,6 +653,8 @@ namespace esphome
                     // Publish outdoor temperature if there are no pending control messages
                     target->set_outdoor_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_outdoor_temp_c);
                     target->set_outdoor_operation_mode(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_operation_mode);
+                    target->set_outdoor_discharge_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp_c);
+                    target->set_outdoor_condenser_mid_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp_c);
                     // target->set_outdoor_compressor(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_compressor);
                     // target->set_outdoor_condenser_mid_temp(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp_c);
                     // target->set_outdoor_condenser_discharge_temp(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp_c);
