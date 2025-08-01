@@ -185,7 +185,7 @@ namespace esphome
 
       void set_outdoor_condenser_mid_temperature_sensor(sensor::Sensor *sensor)
       {
-        outdoor_condenser_mid_temperature = sensor;s
+        outdoor_condenser_mid_temperature = sensor;
       }
 
       void set_outdoor_operation_mode_sensor(sensor::Sensor *sensor)
