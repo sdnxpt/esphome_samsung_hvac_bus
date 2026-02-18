@@ -87,7 +87,6 @@ namespace esphome
             virtual void set_outdoor_temperature(const std::string address, float value) = 0;
             virtual void set_discharge_temperature(const std::string address, float value) = 0;
             virtual void set_condenser_mid_temperature(const std::string address, float value) = 0;
-            virtual void set_outdoor_temperature(const std::string address, float value) = 0;
             virtual void set_indoor_eva_in_temperature(const std::string address, float value) = 0;
             virtual void set_indoor_eva_out_temperature(const std::string address, float value) = 0;
             virtual void set_target_water_temperature(const std::string address, float value) = 0;
