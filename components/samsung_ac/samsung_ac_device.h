@@ -195,6 +195,16 @@ namespace esphome
         outdoor_temperature = sensor;
       }
 
+      void set_discharge_temperature_sensor(sensor::Sensor *sensor)
+      {
+        discharge_temperature = sensor;
+      }
+
+      void set_condenser_mid_temperature_sensor(sensor::Sensor *sensor)
+      {
+        condenser_mid_temperature = sensor;
+      }
+
       void set_indoor_eva_in_temperature_sensor(sensor::Sensor *sensor)
       {
         indoor_eva_in_temperature = sensor;
