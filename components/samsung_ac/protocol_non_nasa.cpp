@@ -908,6 +908,10 @@ namespace esphome
                 // Cast to int8_t first to preserve sign (uint8_t wraps negative values), then to float
                 float temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_outdoor_temp.to_celsius()));
                 target->set_outdoor_temperature(nonpacket_.src, temp);
+                temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_discharge_temp.to_celsius()));
+                target->set_discharge_temperature(nonpacket_.src, temp);
+                temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_condenser_mid_temp.to_celsius()));
+                target->set_condenser_mid_temperature(nonpacket_.src, temp);
             }
             else if (nonpacket_.cmd == NonNasaCommand::Cmd8D)
             {
