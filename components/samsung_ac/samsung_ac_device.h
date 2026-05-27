@@ -128,6 +128,15 @@ namespace esphome
       binary_sensor::BinarySensor *outdoor_fan{nullptr};
       binary_sensor::BinarySensor *outdoor_four_way_valve{nullptr};
       binary_sensor::BinarySensor *outdoor_hot_gas_bypass{nullptr};
+      sensor::Sensor *outdoor_inverter_current_frequency{nullptr};
+      sensor::Sensor *outdoor_inverter_target_frequency{nullptr};
+      sensor::Sensor *outdoor_inverter_order_frequency{nullptr};
+      binary_sensor::BinarySensor *outdoor_defrost_active{nullptr};
+      binary_sensor::BinarySensor *outdoor_freeze_protection{nullptr};
+      binary_sensor::BinarySensor *outdoor_heating_overload{nullptr};
+      binary_sensor::BinarySensor *outdoor_discharge_protection{nullptr};
+      binary_sensor::BinarySensor *outdoor_current_control{nullptr};
+      binary_sensor::BinarySensor *outdoor_bldc_fan{nullptr};
       sensor::Sensor *indoor_eva_in_temperature{nullptr};
       sensor::Sensor *indoor_eva_out_temperature{nullptr};
       sensor::Sensor *error_code{nullptr};
@@ -242,6 +251,51 @@ namespace esphome
       void set_outdoor_hot_gas_bypass_sensor(binary_sensor::BinarySensor *sensor)
       {
         outdoor_hot_gas_bypass = sensor;
+      }
+
+      void set_outdoor_inverter_current_frequency_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_inverter_current_frequency = sensor;
+      }
+
+      void set_outdoor_inverter_target_frequency_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_inverter_target_frequency = sensor;
+      }
+
+      void set_outdoor_inverter_order_frequency_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_inverter_order_frequency = sensor;
+      }
+
+      void set_outdoor_defrost_active_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_defrost_active = sensor;
+      }
+
+      void set_outdoor_freeze_protection_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_freeze_protection = sensor;
+      }
+
+      void set_outdoor_heating_overload_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_heating_overload = sensor;
+      }
+
+      void set_outdoor_discharge_protection_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_discharge_protection = sensor;
+      }
+
+      void set_outdoor_current_control_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_current_control = sensor;
+      }
+
+      void set_outdoor_bldc_fan_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_bldc_fan = sensor;
       }
 
       void set_indoor_eva_in_temperature_sensor(sensor::Sensor *sensor)

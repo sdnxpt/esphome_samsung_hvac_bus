@@ -25,6 +25,7 @@ from esphome.const import (
     UNIT_WATT,
     UNIT_VOLT,
     UNIT_AMPERE,
+    UNIT_HERTZ,
     CONF_UNIT_OF_MEASUREMENT,
     CONF_DEVICE_CLASS,
     CONF_FILTERS,
@@ -79,6 +80,15 @@ CONF_DEVICE_OUTDOOR_COMPRESSOR = "outdoor_compressor"
 CONF_DEVICE_OUTDOOR_FAN = "outdoor_fan"
 CONF_DEVICE_OUTDOOR_FOUR_WAY_VALVE = "outdoor_four_way_valve"
 CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS = "outdoor_hot_gas_bypass"
+CONF_DEVICE_OUTDOOR_INVERTER_CURRENT_FREQUENCY = "outdoor_inverter_current_frequency"
+CONF_DEVICE_OUTDOOR_INVERTER_TARGET_FREQUENCY = "outdoor_inverter_target_frequency"
+CONF_DEVICE_OUTDOOR_INVERTER_ORDER_FREQUENCY = "outdoor_inverter_order_frequency"
+CONF_DEVICE_OUTDOOR_DEFROST_ACTIVE = "outdoor_defrost_active"
+CONF_DEVICE_OUTDOOR_FREEZE_PROTECTION = "outdoor_freeze_protection"
+CONF_DEVICE_OUTDOOR_HEATING_OVERLOAD = "outdoor_heating_overload"
+CONF_DEVICE_OUTDOOR_DISCHARGE_PROTECTION = "outdoor_discharge_protection"
+CONF_DEVICE_OUTDOOR_CURRENT_CONTROL = "outdoor_current_control"
+CONF_DEVICE_OUTDOOR_BLDC_FAN = "outdoor_bldc_fan"
 CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE = "indoor_eva_in_temperature"
 CONF_DEVICE_INDOOR_EVA_OUT_TEMPERATURE = "indoor_eva_out_temperature"
 CONF_DEVICE_WATER_TEMPERATURE = "water_temperature"
@@ -273,6 +283,35 @@ DEVICE_SCHEMA = cv.Schema(
         ),
         cv.Optional(CONF_DEVICE_OUTDOOR_FOUR_WAY_VALVE): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_DEVICE_OUTDOOR_INVERTER_CURRENT_FREQUENCY): sensor.sensor_schema(
+            unit_of_measurement=UNIT_HERTZ,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_INVERTER_TARGET_FREQUENCY): sensor.sensor_schema(
+            unit_of_measurement=UNIT_HERTZ,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_INVERTER_ORDER_FREQUENCY): sensor.sensor_schema(
+            unit_of_measurement=UNIT_HERTZ,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_DEFROST_ACTIVE): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_DEVICE_OUTDOOR_FREEZE_PROTECTION): binary_sensor.binary_sensor_schema(
+            device_class="problem",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_HEATING_OVERLOAD): binary_sensor.binary_sensor_schema(
+            device_class="problem",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_DISCHARGE_PROTECTION): binary_sensor.binary_sensor_schema(
+            device_class="problem",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_CURRENT_CONTROL): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_DEVICE_OUTDOOR_BLDC_FAN): binary_sensor.binary_sensor_schema(
+            device_class="running",
+        ),
         cv.Optional(CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
             accuracy_decimals=1,
@@ -542,6 +581,42 @@ async def to_code(config):
             CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS: (
                 binary_sensor.new_binary_sensor,
                 var_dev.set_outdoor_hot_gas_bypass_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_INVERTER_CURRENT_FREQUENCY: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_inverter_current_frequency_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_INVERTER_TARGET_FREQUENCY: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_inverter_target_frequency_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_INVERTER_ORDER_FREQUENCY: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_inverter_order_frequency_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_DEFROST_ACTIVE: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_defrost_active_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_FREEZE_PROTECTION: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_freeze_protection_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_HEATING_OVERLOAD: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_heating_overload_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_DISCHARGE_PROTECTION: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_discharge_protection_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_CURRENT_CONTROL: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_current_control_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_BLDC_FAN: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_bldc_fan_sensor,
             ),
             CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE: (
                 sensor.new_sensor,

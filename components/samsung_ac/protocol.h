@@ -92,6 +92,15 @@ namespace esphome
             virtual void set_outdoor_fan(const std::string address, bool value) = 0;
             virtual void set_outdoor_four_way_valve(const std::string address, bool value) = 0;
             virtual void set_outdoor_hot_gas_bypass(const std::string address, bool value) = 0;
+            virtual void set_outdoor_inverter_current_frequency(const std::string address, float value) = 0;
+            virtual void set_outdoor_inverter_target_frequency(const std::string address, float value) = 0;
+            virtual void set_outdoor_inverter_order_frequency(const std::string address, float value) = 0;
+            virtual void set_outdoor_defrost_active(const std::string address, bool value) = 0;
+            virtual void set_outdoor_freeze_protection(const std::string address, bool value) = 0;
+            virtual void set_outdoor_heating_overload(const std::string address, bool value) = 0;
+            virtual void set_outdoor_discharge_protection(const std::string address, bool value) = 0;
+            virtual void set_outdoor_current_control(const std::string address, bool value) = 0;
+            virtual void set_outdoor_bldc_fan(const std::string address, bool value) = 0;
             virtual void set_indoor_eva_in_temperature(const std::string address, float value) = 0;
             virtual void set_indoor_eva_out_temperature(const std::string address, float value) = 0;
             virtual void set_target_water_temperature(const std::string address, float value) = 0;

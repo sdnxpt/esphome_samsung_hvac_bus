@@ -182,6 +182,60 @@ namespace esphome
                                  { dev->update_binary_sensor_state(dev->outdoor_hot_gas_bypass, value); });
       }
 
+      void set_outdoor_inverter_current_frequency(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_inverter_current_frequency, value); });
+      }
+
+      void set_outdoor_inverter_target_frequency(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_inverter_target_frequency, value); });
+      }
+
+      void set_outdoor_inverter_order_frequency(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_inverter_order_frequency, value); });
+      }
+
+      void set_outdoor_defrost_active(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_defrost_active, value); });
+      }
+
+      void set_outdoor_freeze_protection(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_freeze_protection, value); });
+      }
+
+      void set_outdoor_heating_overload(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_heating_overload, value); });
+      }
+
+      void set_outdoor_discharge_protection(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_discharge_protection, value); });
+      }
+
+      void set_outdoor_current_control(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_current_control, value); });
+      }
+
+      void set_outdoor_bldc_fan(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_bldc_fan, value); });
+      }
+
       void set_indoor_eva_in_temperature(const std::string address, float value) override
       {
         execute_if_device_exists(address, [value](Samsung_AC_Device *dev)

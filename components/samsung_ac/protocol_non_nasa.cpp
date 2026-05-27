@@ -964,6 +964,15 @@ namespace esphome
                     LOGW("s:%s d:%s CmdF0 outdoor_unit_error_code %d", nonpacket_.src.c_str(), nonpacket_.dst.c_str(), error_code);
                 }
                 target->set_error_code(nonpacket_.src, error_code);
+                target->set_outdoor_inverter_current_frequency(nonpacket_.src, nonpacket_.commandF0.inverter_current_frequency_hz);
+                target->set_outdoor_inverter_target_frequency(nonpacket_.src, nonpacket_.commandF0.inverter_target_frequency_hz);
+                target->set_outdoor_inverter_order_frequency(nonpacket_.src, nonpacket_.commandF0.inverter_order_frequency_hz);
+                target->set_outdoor_defrost_active(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_defrost_control);
+                target->set_outdoor_freeze_protection(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_freeze_protection);
+                target->set_outdoor_heating_overload(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_heating_overload);
+                target->set_outdoor_discharge_protection(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_discharge_protection);
+                target->set_outdoor_current_control(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_current_control);
+                target->set_outdoor_bldc_fan(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_bldc_fan);
             }
             else if (nonpacket_.cmd == NonNasaCommand::CmdC6)
             {
