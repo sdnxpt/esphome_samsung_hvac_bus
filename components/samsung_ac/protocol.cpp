@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "protocol.h"
 #include "util.h"
 #include "log.h"
