@@ -152,6 +152,12 @@ namespace esphome
                                  { dev->update_sensor_state(dev->condenser_mid_temperature, value); });
       }
 
+      void set_sump_temperature(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->sump_temperature, value); });
+      }
+
       void set_indoor_eva_in_temperature(const std::string address, float value) override
       {
         execute_if_device_exists(address, [value](Samsung_AC_Device *dev)

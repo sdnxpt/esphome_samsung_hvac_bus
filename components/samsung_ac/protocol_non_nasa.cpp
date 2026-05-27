@@ -907,6 +907,10 @@ namespace esphome
                 target->set_discharge_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp.to_celsius());
                 target->set_condenser_mid_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp.to_celsius());
             }
+            else if (nonpacket_.cmd == NonNasaCommand::CmdC1)
+            {
+                target->set_sump_temperature(nonpacket_.src, nonpacket_.commandC1.outdoor_unit_sump_temp.to_celsius());
+            }
             else if (nonpacket_.cmd == NonNasaCommand::Cmd8D)
             {
                 // Cmd8D comes from the outdoor unit and contains power/energy sensor data

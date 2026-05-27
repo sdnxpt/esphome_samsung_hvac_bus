@@ -73,6 +73,7 @@ CONF_DEVICE_WATER_OUTLET_TARGET = "water_outlet_target"
 CONF_DEVICE_OUTDOOR_TEMPERATURE = "outdoor_temperature"
 CONF_DEVICE_DISCHARGE_TEMPERATURE = "discharge_temperature"
 CONF_DEVICE_CONDENSER_MID_TEMPERATURE = "condenser_mid_temperature"
+CONF_DEVICE_SUMP_TEMPERATURE = "sump_temperature"
 CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE = "indoor_eva_in_temperature"
 CONF_DEVICE_INDOOR_EVA_OUT_TEMPERATURE = "indoor_eva_out_temperature"
 CONF_DEVICE_WATER_TEMPERATURE = "water_temperature"
@@ -248,6 +249,12 @@ DEVICE_SCHEMA = cv.Schema(
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_DEVICE_CONDENSER_MID_TEMPERATURE): sensor.sensor_schema(
+            unit_of_measurement=UNIT_CELSIUS,
+            accuracy_decimals=1,
+            device_class=DEVICE_CLASS_TEMPERATURE,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional(CONF_DEVICE_SUMP_TEMPERATURE): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
             accuracy_decimals=1,
             device_class=DEVICE_CLASS_TEMPERATURE,
@@ -502,6 +509,10 @@ async def to_code(config):
             CONF_DEVICE_CONDENSER_MID_TEMPERATURE: (
                 sensor.new_sensor,
                 var_dev.set_condenser_mid_temperature_sensor,
+            ),
+            CONF_DEVICE_SUMP_TEMPERATURE: (
+                sensor.new_sensor,
+                var_dev.set_sump_temperature_sensor,
             ),
             CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE: (
                 sensor.new_sensor,
