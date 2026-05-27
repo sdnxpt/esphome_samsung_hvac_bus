@@ -906,6 +906,10 @@ namespace esphome
                 target->set_outdoor_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_outdoor_temp.to_celsius());
                 target->set_discharge_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp.to_celsius());
                 target->set_condenser_mid_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp.to_celsius());
+                target->set_outdoor_compressor(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_compressor);
+                target->set_outdoor_fan(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_ac_fan);
+                target->set_outdoor_four_way_valve(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_4_way_valve);
+                target->set_outdoor_hot_gas_bypass(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_hot_gas_bypass);
             }
             else if (nonpacket_.cmd == NonNasaCommand::CmdC1)
             {

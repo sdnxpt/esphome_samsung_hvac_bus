@@ -3,6 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import (
     uart,
     sensor,
+    binary_sensor,
     switch,
     select,
     number,
@@ -36,7 +37,7 @@ from esphome import pins
 
 CODEOWNERS = ["matthias882", "lanwin", "omerfaruk-aran"]
 DEPENDENCIES = ["uart"]
-AUTO_LOAD = ["sensor", "switch", "select", "number", "climate", "text_sensor"]
+AUTO_LOAD = ["sensor", "binary_sensor", "switch", "select", "number", "climate", "text_sensor"]
 MULTI_CONF = False
 
 CONF_SAMSUNG_AC_ID = "samsung_ac_id"
@@ -74,6 +75,10 @@ CONF_DEVICE_OUTDOOR_TEMPERATURE = "outdoor_temperature"
 CONF_DEVICE_DISCHARGE_TEMPERATURE = "discharge_temperature"
 CONF_DEVICE_CONDENSER_MID_TEMPERATURE = "condenser_mid_temperature"
 CONF_DEVICE_SUMP_TEMPERATURE = "sump_temperature"
+CONF_DEVICE_OUTDOOR_COMPRESSOR = "outdoor_compressor"
+CONF_DEVICE_OUTDOOR_FAN = "outdoor_fan"
+CONF_DEVICE_OUTDOOR_FOUR_WAY_VALVE = "outdoor_four_way_valve"
+CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS = "outdoor_hot_gas_bypass"
 CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE = "indoor_eva_in_temperature"
 CONF_DEVICE_INDOOR_EVA_OUT_TEMPERATURE = "indoor_eva_out_temperature"
 CONF_DEVICE_WATER_TEMPERATURE = "water_temperature"
@@ -260,6 +265,14 @@ DEVICE_SCHEMA = cv.Schema(
             device_class=DEVICE_CLASS_TEMPERATURE,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_COMPRESSOR): binary_sensor.binary_sensor_schema(
+            device_class="running",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_FAN): binary_sensor.binary_sensor_schema(
+            device_class="running",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_FOUR_WAY_VALVE): binary_sensor.binary_sensor_schema(),
+        cv.Optional(CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
             accuracy_decimals=1,
@@ -513,6 +526,22 @@ async def to_code(config):
             CONF_DEVICE_SUMP_TEMPERATURE: (
                 sensor.new_sensor,
                 var_dev.set_sump_temperature_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_COMPRESSOR: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_compressor_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_FAN: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_fan_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_FOUR_WAY_VALVE: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_four_way_valve_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_HOT_GAS_BYPASS: (
+                binary_sensor.new_binary_sensor,
+                var_dev.set_outdoor_hot_gas_bypass_sensor,
             ),
             CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE: (
                 sensor.new_sensor,

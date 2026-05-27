@@ -6,6 +6,7 @@
 #include "esphome/core/helpers.h"
 #include "esphome/components/switch/switch.h"
 #include "esphome/components/sensor/sensor.h"
+#include "esphome/components/binary_sensor/binary_sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/components/select/select.h"
 #include "esphome/components/number/number.h"
@@ -123,6 +124,10 @@ namespace esphome
       sensor::Sensor *discharge_temperature{nullptr};
       sensor::Sensor *condenser_mid_temperature{nullptr};
       sensor::Sensor *sump_temperature{nullptr};
+      binary_sensor::BinarySensor *outdoor_compressor{nullptr};
+      binary_sensor::BinarySensor *outdoor_fan{nullptr};
+      binary_sensor::BinarySensor *outdoor_four_way_valve{nullptr};
+      binary_sensor::BinarySensor *outdoor_hot_gas_bypass{nullptr};
       sensor::Sensor *indoor_eva_in_temperature{nullptr};
       sensor::Sensor *indoor_eva_out_temperature{nullptr};
       sensor::Sensor *error_code{nullptr};
@@ -153,6 +158,14 @@ namespace esphome
       }
 
       void update_sensor_state(sensor::Sensor *target_sensor, float value)
+      {
+        if (target_sensor != nullptr)
+        {
+          target_sensor->publish_state(value);
+        }
+      }
+
+      void update_binary_sensor_state(binary_sensor::BinarySensor *target_sensor, bool value)
       {
         if (target_sensor != nullptr)
         {
@@ -209,6 +222,26 @@ namespace esphome
       void set_sump_temperature_sensor(sensor::Sensor *sensor)
       {
         sump_temperature = sensor;
+      }
+
+      void set_outdoor_compressor_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_compressor = sensor;
+      }
+
+      void set_outdoor_fan_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_fan = sensor;
+      }
+
+      void set_outdoor_four_way_valve_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_four_way_valve = sensor;
+      }
+
+      void set_outdoor_hot_gas_bypass_sensor(binary_sensor::BinarySensor *sensor)
+      {
+        outdoor_hot_gas_bypass = sensor;
       }
 
       void set_indoor_eva_in_temperature_sensor(sensor::Sensor *sensor)

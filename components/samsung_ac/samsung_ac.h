@@ -158,6 +158,30 @@ namespace esphome
                                  { dev->update_sensor_state(dev->sump_temperature, value); });
       }
 
+      void set_outdoor_compressor(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_compressor, value); });
+      }
+
+      void set_outdoor_fan(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_fan, value); });
+      }
+
+      void set_outdoor_four_way_valve(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_four_way_valve, value); });
+      }
+
+      void set_outdoor_hot_gas_bypass(const std::string address, bool value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_binary_sensor_state(dev->outdoor_hot_gas_bypass, value); });
+      }
+
       void set_indoor_eva_in_temperature(const std::string address, float value) override
       {
         execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
