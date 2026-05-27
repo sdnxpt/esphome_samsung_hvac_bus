@@ -236,6 +236,30 @@ namespace esphome
                                  { dev->update_binary_sensor_state(dev->outdoor_bldc_fan, value); });
       }
 
+      void set_outdoor_eev_a(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_eev_a, value); });
+      }
+
+      void set_outdoor_eev_b(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_eev_b, value); });
+      }
+
+      void set_outdoor_eev_c(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_eev_c, value); });
+      }
+
+      void set_outdoor_eev_d(const std::string address, float value) override
+      {
+        execute_if_device_exists(address, [value](Samsung_AC_Device *dev)
+                                 { dev->update_sensor_state(dev->outdoor_eev_d, value); });
+      }
+
       void set_indoor_eva_in_temperature(const std::string address, float value) override
       {
         execute_if_device_exists(address, [value](Samsung_AC_Device *dev)

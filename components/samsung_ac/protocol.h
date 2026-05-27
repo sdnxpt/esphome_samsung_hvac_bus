@@ -101,6 +101,10 @@ namespace esphome
             virtual void set_outdoor_discharge_protection(const std::string address, bool value) = 0;
             virtual void set_outdoor_current_control(const std::string address, bool value) = 0;
             virtual void set_outdoor_bldc_fan(const std::string address, bool value) = 0;
+            virtual void set_outdoor_eev_a(const std::string address, float value) = 0;
+            virtual void set_outdoor_eev_b(const std::string address, float value) = 0;
+            virtual void set_outdoor_eev_c(const std::string address, float value) = 0;
+            virtual void set_outdoor_eev_d(const std::string address, float value) = 0;
             virtual void set_indoor_eva_in_temperature(const std::string address, float value) = 0;
             virtual void set_indoor_eva_out_temperature(const std::string address, float value) = 0;
             virtual void set_target_water_temperature(const std::string address, float value) = 0;

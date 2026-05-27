@@ -137,6 +137,10 @@ namespace esphome
       binary_sensor::BinarySensor *outdoor_discharge_protection{nullptr};
       binary_sensor::BinarySensor *outdoor_current_control{nullptr};
       binary_sensor::BinarySensor *outdoor_bldc_fan{nullptr};
+      sensor::Sensor *outdoor_eev_a{nullptr};
+      sensor::Sensor *outdoor_eev_b{nullptr};
+      sensor::Sensor *outdoor_eev_c{nullptr};
+      sensor::Sensor *outdoor_eev_d{nullptr};
       sensor::Sensor *indoor_eva_in_temperature{nullptr};
       sensor::Sensor *indoor_eva_out_temperature{nullptr};
       sensor::Sensor *error_code{nullptr};
@@ -296,6 +300,26 @@ namespace esphome
       void set_outdoor_bldc_fan_sensor(binary_sensor::BinarySensor *sensor)
       {
         outdoor_bldc_fan = sensor;
+      }
+
+      void set_outdoor_eev_a_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_eev_a = sensor;
+      }
+
+      void set_outdoor_eev_b_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_eev_b = sensor;
+      }
+
+      void set_outdoor_eev_c_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_eev_c = sensor;
+      }
+
+      void set_outdoor_eev_d_sensor(sensor::Sensor *sensor)
+      {
+        outdoor_eev_d = sensor;
       }
 
       void set_indoor_eva_in_temperature_sensor(sensor::Sensor *sensor)

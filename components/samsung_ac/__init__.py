@@ -89,6 +89,10 @@ CONF_DEVICE_OUTDOOR_HEATING_OVERLOAD = "outdoor_heating_overload"
 CONF_DEVICE_OUTDOOR_DISCHARGE_PROTECTION = "outdoor_discharge_protection"
 CONF_DEVICE_OUTDOOR_CURRENT_CONTROL = "outdoor_current_control"
 CONF_DEVICE_OUTDOOR_BLDC_FAN = "outdoor_bldc_fan"
+CONF_DEVICE_OUTDOOR_EEV_A = "outdoor_eev_a"
+CONF_DEVICE_OUTDOOR_EEV_B = "outdoor_eev_b"
+CONF_DEVICE_OUTDOOR_EEV_C = "outdoor_eev_c"
+CONF_DEVICE_OUTDOOR_EEV_D = "outdoor_eev_d"
 CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE = "indoor_eva_in_temperature"
 CONF_DEVICE_INDOOR_EVA_OUT_TEMPERATURE = "indoor_eva_out_temperature"
 CONF_DEVICE_WATER_TEMPERATURE = "water_temperature"
@@ -311,6 +315,26 @@ DEVICE_SCHEMA = cv.Schema(
         cv.Optional(CONF_DEVICE_OUTDOOR_CURRENT_CONTROL): binary_sensor.binary_sensor_schema(),
         cv.Optional(CONF_DEVICE_OUTDOOR_BLDC_FAN): binary_sensor.binary_sensor_schema(
             device_class="running",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_EEV_A): sensor.sensor_schema(
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+            icon="mdi:valve",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_EEV_B): sensor.sensor_schema(
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+            icon="mdi:valve",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_EEV_C): sensor.sensor_schema(
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+            icon="mdi:valve",
+        ),
+        cv.Optional(CONF_DEVICE_OUTDOOR_EEV_D): sensor.sensor_schema(
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT,
+            icon="mdi:valve",
         ),
         cv.Optional(CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
@@ -617,6 +641,22 @@ async def to_code(config):
             CONF_DEVICE_OUTDOOR_BLDC_FAN: (
                 binary_sensor.new_binary_sensor,
                 var_dev.set_outdoor_bldc_fan_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_EEV_A: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_eev_a_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_EEV_B: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_eev_b_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_EEV_C: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_eev_c_sensor,
+            ),
+            CONF_DEVICE_OUTDOOR_EEV_D: (
+                sensor.new_sensor,
+                var_dev.set_outdoor_eev_d_sensor,
             ),
             CONF_DEVICE_INDOOR_EVA_IN_TEMPERATURE: (
                 sensor.new_sensor,

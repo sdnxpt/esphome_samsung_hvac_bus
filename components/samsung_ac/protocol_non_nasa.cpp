@@ -974,6 +974,13 @@ namespace esphome
                 target->set_outdoor_current_control(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_current_control);
                 target->set_outdoor_bldc_fan(nonpacket_.src, nonpacket_.commandF0.outdoor_unit_bldc_fan);
             }
+            else if (nonpacket_.cmd == NonNasaCommand::CmdF1)
+            {
+                target->set_outdoor_eev_a(nonpacket_.src, nonpacket_.commandF1.outdoor_unit_EEV_A);
+                target->set_outdoor_eev_b(nonpacket_.src, nonpacket_.commandF1.outdoor_unit_EEV_B);
+                target->set_outdoor_eev_c(nonpacket_.src, nonpacket_.commandF1.outdoor_unit_EEV_C);
+                target->set_outdoor_eev_d(nonpacket_.src, nonpacket_.commandF1.outdoor_unit_EEV_D);
+            }
             else if (nonpacket_.cmd == NonNasaCommand::CmdC6)
             {
                 // We have received a request_control message. This is a message outdoor units will
