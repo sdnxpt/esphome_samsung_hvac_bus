@@ -148,19 +148,14 @@ namespace esphome
         {
             bool is_fahrenheit = (data >> 7) & 1;
             if (is_fahrenheit)
-                return { TemperatureUnit::Fahrenheit, static_cast<uint8_t>(data - 128) };
+                return { TemperatureUnit::Fahrenheit, static_cast<int16_t>(data - 128) };
             else
-                return { TemperatureUnit::Celsius, static_cast<uint8_t>(data - 55) };
+                return { TemperatureUnit::Celsius, static_cast<int16_t>(static_cast<int16_t>(data) - 55) };
         }
 
-        uint8_t Temperature::encode()
+        Temperature Temperature::decode_celsius(uint8_t data)
         {
-            switch (unit)
-            {
-            case TemperatureUnit::Celsius:    return temperature;
-            case TemperatureUnit::Fahrenheit: return temperature - 59;
-            default:                          return temperature;
-            }
+            return { TemperatureUnit::Celsius, static_cast<int16_t>(static_cast<int16_t>(data) - 55) };
         }
 
         std::string Temperature::to_string()
@@ -384,12 +379,12 @@ namespace esphome
             case NonNasaCommand::Cmd20:
                 command20.target_temp = Temperature::decode(data[4]);
                 command20.room_temp = Temperature::decode(data[5]);
-                command20.pipe_in = Temperature::decode(data[6]);
+                command20.pipe_in = Temperature::decode_celsius(data[6]);
                 command20.wind_direction = (NonNasaWindDirection)((data[7]) >> 3);
                 command20.fanspeed = (NonNasaFanspeed)((data[7] & 0b00000111));
                 command20.mode = (NonNasaMode)(data[8] & 0b00111111);
                 command20.power = data[8] & 0b10000000;
-                command20.pipe_out = Temperature::decode(data[11]);
+                command20.pipe_out = Temperature::decode_celsius(data[11]);
 
                 if (command20.wind_direction == (NonNasaWindDirection)0)
                     command20.wind_direction = NonNasaWindDirection::Stop;
@@ -402,13 +397,13 @@ namespace esphome
                 commandC0.outdoor_unit_hot_gas_bypass = data[6] & 0b00100000;
                 commandC0.outdoor_unit_compressor = data[6] & 0b00000100;
                 commandC0.outdoor_unit_ac_fan = data[7] & 0b00000011;
-                commandC0.outdoor_unit_outdoor_temp = Temperature::decode(data[8]);
-                commandC0.outdoor_unit_discharge_temp = Temperature::decode(data[10]);
-                commandC0.outdoor_unit_condenser_mid_temp = Temperature::decode(data[11]);
+                commandC0.outdoor_unit_outdoor_temp = Temperature::decode_celsius(data[8]);
+                commandC0.outdoor_unit_discharge_temp = Temperature::decode_celsius(data[10]);
+                commandC0.outdoor_unit_condenser_mid_temp = Temperature::decode_celsius(data[11]);
                 return {DecodeResultType::Processed, 14};
 
             case NonNasaCommand::CmdC1:
-                commandC1.outdoor_unit_sump_temp = Temperature::decode(data[8]);
+                commandC1.outdoor_unit_sump_temp = Temperature::decode_celsius(data[8]);
                 return {DecodeResultType::Processed, 14};
 
             case NonNasaCommand::CmdC6:
@@ -577,8 +572,11 @@ namespace esphome
             bool individual = false;
 
             data[4] = encode_request_wind_direction(wind_direction);
-            data[5] = room_temp.encode();
-            data[6] = (target_temp.encode() & 31U) | encode_request_fanspeed(fanspeed);
+            int16_t room_temp_c = (int16_t)room_temp.to_celsius();
+            int16_t target_temp_c = (int16_t)target_temp.to_celsius();
+            if (room_temp_c > 0)
+                data[5] = (uint8_t)room_temp_c;
+            data[6] = ((uint8_t)target_temp_c & 31U) | encode_request_fanspeed(fanspeed);
             data[7] = (uint8_t)encode_request_mode(mode);
             data[8] = !power ? (uint8_t)0xC0 : (uint8_t)0xF0;
             data[8] |= (individual ? 6U : 4U);
@@ -905,13 +903,9 @@ namespace esphome
                 // Note: No pending control message check needed here since CmdC0 comes from the
                 // outdoor unit (typically "c8"), while control messages are sent to indoor units.
                 // Outdoor temperature updates are independent status data and should always be processed.
-                // Cast to int8_t first to preserve sign (uint8_t wraps negative values), then to float
-                float temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_outdoor_temp.to_celsius()));
-                target->set_outdoor_temperature(nonpacket_.src, temp);
-                temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_discharge_temp.to_celsius()));
-                target->set_discharge_temperature(nonpacket_.src, temp);
-                temp = static_cast<float>(static_cast<int8_t>(nonpacket_.commandC0.outdoor_unit_condenser_mid_temp.to_celsius()));
-                target->set_condenser_mid_temperature(nonpacket_.src, temp);
+                target->set_outdoor_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_outdoor_temp.to_celsius());
+                target->set_discharge_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_discharge_temp.to_celsius());
+                target->set_condenser_mid_temperature(nonpacket_.src, nonpacket_.commandC0.outdoor_unit_condenser_mid_temp.to_celsius());
             }
             else if (nonpacket_.cmd == NonNasaCommand::Cmd8D)
             {

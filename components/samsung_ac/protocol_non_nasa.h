@@ -46,10 +46,15 @@ namespace esphome
         struct Temperature
         {
             TemperatureUnit unit;
-            uint8_t temperature;
+            int16_t temperature;
 
+            // Decodes a user-facing temperature byte (target_temp, room_temp) where bit 7
+            // signals the unit: 0 = Celsius (value + 55), 1 = Fahrenheit (lower 7 bits = °F).
             static Temperature decode(uint8_t data);
-            uint8_t encode();
+            // Decodes a system/refrigeration temperature byte (pipe, discharge, outdoor,
+            // condenser, sump). Always Celsius with a +55 offset; bit 7 just means the
+            // reading is ≥ 73°C, not Fahrenheit.
+            static Temperature decode_celsius(uint8_t data);
             std::string to_string();
             float to_celsius();
             void set_from_celsius(float celsius);
